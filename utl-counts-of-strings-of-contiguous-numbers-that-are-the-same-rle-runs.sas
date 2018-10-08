@@ -1,5 +1,10 @@
 Counts of strings of contiguous numbers that are the same (runn length encoding)
 
+Recent simple SAS solution on end
+
+Bartosz Jablonski
+yabwon@gmail.com
+
 https://tinyurl.com/y9snecu7
 https://stackoverflow.com/questions/52674624/how-to-find-strings-of-contiguous-numbers-that-are-the-same
 
@@ -99,6 +104,36 @@ cards4;
 1 0 0
 ;;;;
 run;quit;
+
+
+*____             _
+| __ )  __ _ _ __| |_
+|  _ \ / _` | '__| __|
+| |_) | (_| | |  | |_
+|____/ \__,_|_|   \__|
+
+;
+
+Bartosz Jablonski
+yabwon@gmail.com
+
+/* code */
+data want2(rename=(ca=a cb=b cc=c));
+set have end=EOF;
+
+array vars a b c;
+array cvars ca cb cc; keep ca cb cc;
+
+do over vars;
+ if vars NE lag(vars) then cvars+vars;
+end;
+
+if EOF then
+do;
+ output;
+ put ca= cb= cc=;
+end;
+run;
 
 
 
