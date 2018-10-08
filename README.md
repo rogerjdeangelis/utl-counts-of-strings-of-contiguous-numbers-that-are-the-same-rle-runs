@@ -2,7 +2,11 @@
 Counts of strings of contiguous numbers that are the same (runn length encoding)
 
     Counts of strings of contiguous numbers that are the same (runn length encoding)
-
+    
+    Recent nice SAS solution on end by
+    Bartosz Jablonski
+    yabwon@gmail.com
+    
     github
     https://tinyurl.com/y8n9bdsv
     https://github.com/rogerjdeangelis/utl-counts-of-strings-of-contiguous-numbers-that-are-the-same-rle-runs
@@ -107,5 +111,34 @@ Counts of strings of contiguous numbers that are the same (runn length encoding)
     ;;;;
     run;quit;
 
+
+    *____             _
+    | __ )  __ _ _ __| |_
+    |  _ \ / _` | '__| __|
+    | |_) | (_| | |  | |_
+    |____/ \__,_|_|   \__|
+
+    ;
+
+    Bartosz Jablonski
+    yabwon@gmail.com
+
+    /* code */
+    data want2(rename=(ca=a cb=b cc=c));
+    set have end=EOF;
+
+    array vars a b c;
+    array cvars ca cb cc; keep ca cb cc;
+
+    do over vars;
+     if vars NE lag(vars) then cvars+vars;
+    end;
+
+    if EOF then
+    do;
+     output;
+     put ca= cb= cc=;
+    end;
+    run;
 
 
